@@ -6,7 +6,7 @@
   <title>AR Model Placement</title>
   <!-- Include A-Frame and AR.js -->
   <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/ar.js/aframe/build/aframe-ar.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@ar-js-org/ar.js@3.4.1/aframe/build/aframe-ar.min.js"></script>
   <style>
     body, html {
       margin: 0;
@@ -32,13 +32,12 @@
     <p>Try using a compatible mobile browser with camera permissions enabled.</p>
   </div>
 
-  <!-- A-Frame scene for AR -->
-  <a-scene embedded arjs
-           vr-mode-ui="enabled: false"
-           loading-screen="enabled: false"
-           device-orientation-permission-ui="enabled: true"
+  <!-- A-Frame scene -->
+  <a-scene embedded arjs 
+           vr-mode-ui="enabled: false" 
+           loading-screen="enabled: false" 
            renderer="antialias: true; colorManagement: true;">
-    <!-- 3D model -->
+    <!-- 3D Model -->
     <a-entity 
       gltf-model="./models/kawashaki_ninja_h2.glb" 
       position="0 0.1 0" 
@@ -46,7 +45,7 @@
       rotation="0 0 0"
       animation="property: rotation; to: 0 360 0; loop: true; dur: 8000">
     </a-entity>
-    
+
     <!-- AR marker -->
     <a-marker-camera 
       preset="custom" 
@@ -55,15 +54,7 @@
     </a-marker-camera>
   </a-scene>
 
-  <script>
-    // Check if AR is supported
-    window.onload = () => {
-      const isSupported = AFRAME.utils.device.checkHeadsetConnected() || AFRAME.utils.device.checkARSupport();
-      if (!isSupported) {
-        document.querySelector('#unsupported').style.display = 'block';
-        document.querySelector('a-scene').style.display = 'none';
-      }
-    };
-  </script>
+  <!-- External script for AR compatibility check -->
+  <script src="./ar-support-check.js"></script>
 </body>
 </html>
